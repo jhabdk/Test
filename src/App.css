@@ -1,0 +1,26 @@
+.phone-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #CCCCCC;
+}
+
+.phone-container .phone-content {
+    display: flex;
+    flex-direction: column;
+    width: 375px;
+    height: 678px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    color: #111111;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.phone-container .phone-content::-webkit-scrollbar {
+    width: 0;
+    display: none;
+}
