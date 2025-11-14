@@ -13,7 +13,7 @@
     flex-direction: column;
     width: 375px;
     height: 678px;
-    background-color: #FFFFFF;
+    background-color: #6029F9;
     border-radius: 10px;
     color: #111111;
     overflow: hidden;
@@ -23,4 +23,19 @@
 .phone-container .phone-content::-webkit-scrollbar {
     width: 0;
     display: none;
+}
+  
+#page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 15pt;
+  max-height: 480pt;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.button-bg {
+    background-color: #007300;
 }

@@ -1,6 +1,7 @@
-import z from "zod";
+import z, { boolean, number } from "zod";
 import "./App.css";
 import { Text, View } from "./components";
+import { useState } from "react";
 
 /**
   
@@ -20,15 +21,61 @@ import { Text, View } from "./components";
 
  */
 
-export const SwitchStatus = {
-  OPEN: "open",
-  CLOSE: "close",
-} as const;
-
 export default function App() {
+  interface ButtonItem {
+    isActive: boolean;
+    id: number;
+  }
+
+  const [buttons, setButtons] = useState<ButtonItem[]>([]);
+  const [nextId, setNextId] = useState<number>(1);
+
+  function AddButton() {
+    const newButton: ButtonItem = {
+      id: nextId,
+      isActive: false,
+    };
+    //通过zod库判断当前数据类型与所需类型是否一致
+    if (z.boolean().safeParse(newButton.isActive).success) {
+      setButtons((prevButtons) => [...prevButtons, newButton]);
+    } else {
+      console.log(z.boolean().safeParse(newButton.isActive).success);
+    }
+
+    if (z.number().safeParse(newButton.id).success) {
+      setNextId((prevId) => prevId + 1);
+    }
+  }
+
+  const ChangeButton = (id: number) => {
+    setButtons((prevButtons) =>
+      prevButtons.map((button) =>
+        button.id === id ? { ...button, isActive: !button.isActive } : button
+      )
+    );
+  };
   return (
     <View className="phone-container">
-      <View className="phone-content"></View>
+      <View className="phone-content">
+        <div id="page">
+          {buttons.map((button) => (
+            <button
+              key={button.id}
+              className={`custom-button ${button.isActive ? "button-bg" : ""}`}
+              onClick={() => ChangeButton(button.id)}
+            >
+              <Text>Button</Text>
+              <br />
+              <Text>{`${button.id}`}</Text>
+            </button>
+          ))}
+          <button onClick={AddButton}>
+            <Text>Add Button</Text>
+            <br />
+            <Text>+</Text>
+          </button>
+        </div>
+      </View>
     </View>
   );
 }
